@@ -6,6 +6,7 @@ var express = require('express');		//call express
 var app = express();					//define our app using express
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var Bear = require('./app/models/bear');
 
 mongoose.connect('mongodb://startup:password@proximus.modulusmongo.net:27017/Q2imuqeb'); // connect to our database
 
@@ -18,6 +19,13 @@ var port = process.env.PORT || 8080;	//set our port
 //ROUTES FOR OUR API
 //===================================================
 var router = express.Router();			//get an instance of the express router
+
+//middleware to use for all requests
+router.use(function(req, res, next){
+	//do logging
+	console.log('Something is happening.');
+	next();
+});
 
 //test route to make sure everything is working (accessed at GET http://localhost:8080/api)
 router.get('/', function(req, res){
